@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import GameField from "./components/GameField.vue";
+import restartIcon from "./assets/restart.png";
 
 const gameField = ref<number[][]>([
   [0, 0, 0, 0],
@@ -39,7 +40,7 @@ const score = computed(() => {
   return gameField.value.flat().reduce((acc, val) => acc + val, 0);
 });
 
-const best = computed((oldVal?:number) => {
+const best = computed((oldVal?: number) => {
   const currentScore = score.value;
   if (oldVal === undefined) {
     return currentScore;
@@ -50,7 +51,7 @@ const best = computed((oldVal?:number) => {
   return oldVal;
 });
 
-startNewGame()
+startNewGame();
 </script>
 
 <template>
@@ -64,6 +65,7 @@ startNewGame()
       Рекорд
       <span>{{ best }}</span>
     </div>
+     <a id="restart" href="#" @click="startNewGame"><img :src="restartIcon" /></a>
   </div>
   <GameField v-model="gameField" />
   <div id="footer">
@@ -84,15 +86,15 @@ startNewGame()
 }
 #score,
 #best {
-   --light-background-color: #eae7da;
+  --light-background-color: #eae7da;
   --dark-backgorund-color: #c6b39c;
   background-color: light-dark(
     var(--light-background-color),
     var(--dark-backgorund-color)
   );
 
-  --light-color:#968977;
-  --dark-color:#747473;
+  --light-color: #968977;
+  --dark-color: #747473;
 
   flex-direction: column;
   font-size: 12px;
@@ -101,26 +103,22 @@ startNewGame()
   padding: 4px 24px;
   text-transform: uppercase;
   border-radius: 12px;
-  color: light-dark(
-    var(--light-color),
-    var(--dark-color)
-  );
+  color: light-dark(var(--light-color), var(--dark-color));
 }
 
 #score span,
 #best span {
   font-size: 20px;
-  
 }
 
 #best {
-  background-color: light-dark(transparent,#c6b39c);
-  border: 2px solid light-dark(#eae7da,transparent)
+  background-color: light-dark(transparent, #c6b39c);
+  border: 2px solid light-dark(#eae7da, transparent);
 }
 #new-game {
   --light-background-color: #8f7a66;
   --dark-background-color: #6f5a46;
-  
+
   background-color: light-dark(
     var(--light-background-color),
     var(--dark-background-color)
@@ -128,29 +126,48 @@ startNewGame()
   color: white;
   border: none;
   border-radius: 12px;
-  padding: 12px 32px;  
-  font-size: 16px;    
+  padding: 12px 32px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-  text-transform: uppercase;  
-  letter-spacing: 1px;      
-  position:absolute;
-  right:16px;
-  top:16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media screen and (width >= 768px) {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+
+  @media screen and (width < 768px) {
+    display: none;
+  }
+}
+
+#restart {
+  position: absolute;
+  right: 16px;
+  display: none;
+  width: 30px;
+  height: 30px;
+  @media screen and (width < 768px) {
+    display: inline-flex;
+    align-self: center;
+  }
 }
 
 #new-game:hover {
   filter: brightness(1.1);
-  transform: scale(1.05);   
+  transform: scale(1.05);
 }
 
 #new-game:active {
   transform: scale(0.95);
 }
-#footer{
-  position:absolute;
-  right:16px;
-  bottom:16px;
+#footer {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
 }
 </style>

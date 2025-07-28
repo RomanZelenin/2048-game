@@ -38,16 +38,16 @@ function getRandomIntInclusive(min: number, max: number) {
 }
 
 function checkGameCompletion() {
-
-  if (gameField.value.some(row => row.some(cell => cell === 2048))) {
+  if (gameField.value.some((row) => row.some((cell) => cell === 2048))) {
     dialogMessage.value = "Поздравляем! Вы набрали 2048! 🎉";
     dialogVisible.value = true;
     return;
   }
 
-  const hasEmptyCell = gameField.value.some(row => row.some(cell => cell === 0));
+  const hasEmptyCell = gameField.value.some((row) =>
+    row.some((cell) => cell === 0)
+  );
   if (!hasEmptyCell) {
-
     for (let i = 0; i < gameField.value.length; i++) {
       for (let j = 0; j < gameField.value.length - 1; j++) {
         if (gameField.value[i][j] === gameField.value[i][j + 1]) {
@@ -55,15 +55,15 @@ function checkGameCompletion() {
         }
       }
     }
-    
+
     for (let i = 0; i < gameField.value.length - 1; i++) {
       for (let j = 0; j < gameField.value.length; j++) {
         if (gameField.value[i][j] === gameField.value[i + 1][j]) {
-          return; 
+          return;
         }
       }
     }
-    
+
     dialogMessage.value = "Конец игры! У вас не осталось ходов. 😢";
     dialogVisible.value = true;
   }
@@ -185,6 +185,62 @@ document.onkeydown = function (it) {
     checkGameCompletion();
   }
 };
+
+let startX = 0;
+let startY = 0;
+
+document.addEventListener("touchstart", (e) => {
+  const touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
+});
+
+document.addEventListener("touchend", (e) => {
+  const touch = e.changedTouches[0];
+  const deltaX = touch.clientX - startX;
+  const deltaY = touch.clientY - startY;
+  let event:KeyboardEvent
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) {
+      event = new KeyboardEvent("keydown", {
+        key: "ArrowRight",
+        code: "ArrowRight",
+        keyCode: 39,
+        bubbles: true,
+        cancelable: true,
+      });
+
+      document.dispatchEvent(event);
+    } else {
+      event = new KeyboardEvent("keydown", {
+        key: "ArrowLeft",
+        code: "ArrowLeft",
+        keyCode: 37,
+        bubbles: true,
+        cancelable: true,
+      });
+    }
+  } else {
+    if (deltaY > 0) {
+      event = new KeyboardEvent("keydown", {
+        key: "ArrowDown",
+        code: "ArrowDown",
+        keyCode: 40,
+        bubbles: true,
+        cancelable: true,
+      });
+    } else {
+      event = new KeyboardEvent("keydown", {
+        key: "ArrowUp",
+        code: "ArrowUp",
+        keyCode: 38,
+        bubbles: true,
+        cancelable: true,
+      });
+    }
+  }
+  document.dispatchEvent(event);
+});
 </script>
 
 <template>
@@ -220,6 +276,9 @@ document.onkeydown = function (it) {
   padding: 16px;
   gap: 8px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 94px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .row {
   flex: 1;
@@ -318,7 +377,7 @@ document.onkeydown = function (it) {
 
 dialog {
   position: absolute;
-  top:40%;
+  top: 40%;
 
   padding: 2rem;
   border-radius: 12px;

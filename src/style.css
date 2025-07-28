@@ -6,26 +6,25 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: light-dark(var(--light-background-color),
-        var(--dark-backgorund-color));
+  background-color: light-dark(
+    var(--light-background-color),
+    var(--dark-backgorund-color)
+  );
   color-scheme: light dark;
 }
 
 body {
-  position: absolute;
+  position: relative;
   margin: 0;
   display: flex;
-  place-items: center;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 100vh;
+  width: 100%;
+  min-width: 600px;
 }
 
 #app {
   max-width: 1280px;
+  min-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
-
