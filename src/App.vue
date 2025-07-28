@@ -168,7 +168,7 @@ startNewGame();
   transform: scale(0.95);
 }
 #footer {
-  position: absolute;
+  position: fixed;
   right: 16px;
   bottom: 0px;
 }
