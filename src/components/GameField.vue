@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import KeyboardControl from "./KeyboardControl.vue";
 const gameField = defineModel<number[][]>({ required: true });
 const dialogMessage = ref("");
 const dialogVisible = ref(false);
@@ -185,62 +186,6 @@ document.onkeydown = function (it) {
     checkGameCompletion();
   }
 };
-
-let startX = 0;
-let startY = 0;
-
-document.addEventListener("touchstart", (e) => {
-  const touch = e.touches[0];
-  startX = touch.clientX;
-  startY = touch.clientY;
-});
-
-document.addEventListener("touchend", (e) => {
-  const touch = e.changedTouches[0];
-  const deltaX = touch.clientX - startX;
-  const deltaY = touch.clientY - startY;
-  let event:KeyboardEvent
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0) {
-      event = new KeyboardEvent("keydown", {
-        key: "ArrowRight",
-        code: "ArrowRight",
-        keyCode: 39,
-        bubbles: true,
-        cancelable: true,
-      });
-
-      document.dispatchEvent(event);
-    } else {
-      event = new KeyboardEvent("keydown", {
-        key: "ArrowLeft",
-        code: "ArrowLeft",
-        keyCode: 37,
-        bubbles: true,
-        cancelable: true,
-      });
-    }
-  } else {
-    if (deltaY > 0) {
-      event = new KeyboardEvent("keydown", {
-        key: "ArrowDown",
-        code: "ArrowDown",
-        keyCode: 40,
-        bubbles: true,
-        cancelable: true,
-      });
-    } else {
-      event = new KeyboardEvent("keydown", {
-        key: "ArrowUp",
-        code: "ArrowUp",
-        keyCode: 38,
-        bubbles: true,
-        cancelable: true,
-      });
-    }
-  }
-  document.dispatchEvent(event);
-});
 </script>
 
 <template>
@@ -250,6 +195,9 @@ document.addEventListener("touchend", (e) => {
         {{ cell > 0 ? cell : "" }}
       </div>
     </div>
+  </div>
+  <div id="keyboard" style="margin-top: 16px;">
+    <KeyboardControl />
   </div>
   <dialog :open="dialogVisible" @click="dialogVisible = false">
     <div class="dialog-content">
@@ -279,6 +227,11 @@ document.addEventListener("touchend", (e) => {
   margin-top: 94px;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (width <= 768px) {
+    width: 450px;
+    height: 450px;
+  }
 }
 .row {
   flex: 1;
@@ -412,5 +365,11 @@ dialog button:hover {
 
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
+}
+
+#keyboard{
+  @media screen and (width > 768px) {
+    display: none;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import GameField from "./components/GameField.vue";
 import restartIcon from "./assets/restart.png";
+import GameField from "./components/GameField.vue";
 
 const gameField = ref<number[][]>([
   [0, 0, 0, 0],
@@ -65,7 +65,9 @@ startNewGame();
       Рекорд
       <span>{{ best }}</span>
     </div>
-     <a id="restart" href="#" @click="startNewGame"><img :src="restartIcon" /></a>
+    <a id="restart" href="#" @click="startNewGame"
+      ><img :src="restartIcon"
+    /></a>
   </div>
   <GameField v-model="gameField" />
   <div id="footer">
@@ -168,6 +170,6 @@ startNewGame();
 #footer {
   position: absolute;
   right: 16px;
-  bottom: 16px;
+  bottom: 0px;
 }
 </style>
