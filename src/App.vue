@@ -55,19 +55,19 @@ startNewGame()
 
 <template>
   <div id="header">
-    <button id="new-game" @click="startNewGame">New Game</button>
+    <button id="new-game" @click="startNewGame">Новая игра</button>
     <div id="score">
-      Score
+      Очки
       <span>{{ score }}</span>
     </div>
     <div id="best">
-      Best
+      Рекорд
       <span>{{ best }}</span>
     </div>
   </div>
   <GameField v-model="gameField" />
   <div id="footer">
-    <p>Developed by Roman Zelenin, 2025</p>
+    <p>Разработал Зеленин Р.А., 2025</p>
   </div>
 </template>
 
@@ -129,13 +129,13 @@ startNewGame()
   color: white;
   border: none;
   border-radius: 12px;
-  padding: 12px 32px;  /* Increased padding */
-  font-size: 16px;     /* Increased font size */
+  padding: 12px 32px;  
+  font-size: 16px;    
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-  text-transform: uppercase;  /* Added text transform */
-  letter-spacing: 1px;       /* Added letter spacing */
+  text-transform: uppercase;  
+  letter-spacing: 1px;      
   position:absolute;
   right:16px;
   top:16px;
@@ -143,7 +143,7 @@ startNewGame()
 
 #new-game:hover {
   filter: brightness(1.1);
-  transform: scale(1.05);    /* Added scale on hover */
+  transform: scale(1.05);   
 }
 
 #new-game:active {

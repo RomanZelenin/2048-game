@@ -38,35 +38,33 @@ function getRandomIntInclusive(min: number, max: number) {
 }
 
 function checkGameCompletion() {
-  // Check if 2048 is reached
+
   if (gameField.value.some(row => row.some(cell => cell === 2048))) {
-    dialogMessage.value = "Congratulations! You've reached 2048! 🎉";
+    dialogMessage.value = "Поздравляем! Вы набрали 2048! 🎉";
     dialogVisible.value = true;
     return;
   }
 
-  // Check if any moves are possible
   const hasEmptyCell = gameField.value.some(row => row.some(cell => cell === 0));
   if (!hasEmptyCell) {
-    // Check horizontal moves
+
     for (let i = 0; i < gameField.value.length; i++) {
       for (let j = 0; j < gameField.value.length - 1; j++) {
         if (gameField.value[i][j] === gameField.value[i][j + 1]) {
-          return; // Move possible
+          return;
         }
       }
     }
     
-    // Check vertical moves
     for (let i = 0; i < gameField.value.length - 1; i++) {
       for (let j = 0; j < gameField.value.length; j++) {
         if (gameField.value[i][j] === gameField.value[i + 1][j]) {
-          return; // Move possible
+          return; 
         }
       }
     }
     
-    dialogMessage.value = "Game Over! No more moves possible. 😢";
+    dialogMessage.value = "Конец игры! У вас не осталось ходов. 😢";
     dialogVisible.value = true;
   }
 }
@@ -200,7 +198,7 @@ document.onkeydown = function (it) {
   <dialog :open="dialogVisible" @click="dialogVisible = false">
     <div class="dialog-content">
       <p>{{ dialogMessage }}</p>
-      <button @click="dialogVisible = false">Close</button>
+      <button @click="dialogVisible = false">Закрыть</button>
     </div>
   </dialog>
 </template>
