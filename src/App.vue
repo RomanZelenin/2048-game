@@ -66,6 +66,9 @@ startNewGame()
     </div>
   </div>
   <GameField v-model="gameField" />
+  <div id="footer">
+    <p>Developed by Roman Zelenin, 2025</p>
+  </div>
 </template>
 
 <style scoped>
@@ -145,5 +148,10 @@ startNewGame()
 
 #new-game:active {
   transform: scale(0.95);
+}
+#footer{
+  position:absolute;
+  right:16px;
+  bottom:16px;
 }
 </style>
