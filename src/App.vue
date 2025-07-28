@@ -80,7 +80,6 @@ startNewGame()
   padding: 16px;
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 16px;
 }
 #score,
