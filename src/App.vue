@@ -39,7 +39,7 @@ const score = computed(() => {
   return gameField.value.flat().reduce((acc, val) => acc + val, 0);
 });
 
-const best = computed((oldVal) => {
+const best = computed((oldVal?:number) => {
   const currentScore = score.value;
   if (oldVal === undefined) {
     return currentScore;

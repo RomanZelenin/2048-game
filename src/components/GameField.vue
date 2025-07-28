@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 const gameField = defineModel<number[][]>({ required: true });
 const dialogMessage = ref("");
 const dialogVisible = ref(false);
